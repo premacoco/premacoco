@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Schedule Delivery{% endblock %}
+
+{% block content %}
+    <h2>Schedule a Delivery</h2>
+    <form method="POST" novalidate>
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <label for="name" class="required">Name</label>
+            {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else "")) }}
+            {% if form.name.errors %}
+                <div class="invalid-feedback">{{ form.name.errors[0] }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group mt-3">
+            <label for="contact_number" class="required">Contact Number (8 digits)</label>
+            {{ form.contact_number(class="form-control" + (" is-invalid" if form.contact_number.errors else "")) }}
+            {% if form.contact_number.errors %}
+                <div class="invalid-feedback">{{ form.contact_number.errors[0] }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group mt-3">
+            <label for="delivery_address" class="required">Delivery Address</label>
+            {{ form.delivery_address(class="form-control" + (" is-invalid" if form.delivery_address.errors else "")) }}
+            {% if form.delivery_address.errors %}
+                <div class="invalid-feedback">{{ form.delivery_address.errors[0] }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group mt-3">
+            <label for="item_description" class="required">Item Description</label>
+            {{ form.item_description(class="form-control" + (" is-invalid" if form.item_description.errors else ""), rows="3") }}
+            {% if form.item_description.errors %}
+                <div class="invalid-feedback">{{ form.item_description.errors[0] }}</div>
+            {% endif %}
+        </div>
+<!--        The calendar is created using the HTML5 type="date" attribute in the form input. In the code, it looks like this:-->
+<!--        The type="date" automatically triggers the browser's native date picker, allowing users to select a date from a calendar interface. -->
+<!--        This is a built-in HTML5 feature that works in most modern web browsers, providing an easy way to choose dates without writing custom JavaScript.-->
+        <div class="form-group mt-3">
+            <label for="pickup_date" class="required">Pickup Date (YYYY-MM-DD)</label>
+            {{ form.pickup_date(class="form-control" + (" is-invalid" if form.pickup_date.errors else ""), type="date") }}
+            {% if form.pickup_date.errors %}
+                <div class="invalid-feedback">{{ form.pickup_date.errors[0] }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group mt-3">
+            <label for="pickup_location">Pickup Location (Optional)</label>
+            {{ form.pickup_location(class="form-control") }}
+        </div>
+        <div class="form-group mt-3">
+            <label for="delivery_method" class="required">Delivery Method</label>
+            {{ form.delivery_method(class="form-control" + (" is-invalid" if form.delivery_method.errors else "")) }}
+            {% if form.delivery_method.errors %}
+                <div class="invalid-feedback">{{ form.delivery_method.errors[0] }}</div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Schedule Delivery</button>
+    </form>
+{% endblock %}
+
+

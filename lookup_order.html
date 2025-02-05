@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Look Up Order{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2>Look Up Your Order</h2>
+        <form method="POST" novalidate>
+            {{ form.csrf_token }}
+            <div class="form-group">
+                <label for="order_number" class="required">Order Number (4 digits)</label>
+                {{ form.order_number(class="form-control" + (" is-invalid" if form.order_number.errors else "")) }}
+                {% if form.order_number.errors %}
+                    <div class="invalid-feedback">{{ form.order_number.errors[0] }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group mt-3">
+                <label for="contact_number" class="required">Contact Number (8 digits)</label>
+                {{ form.contact_number(class="form-control" + (" is-invalid" if form.contact_number.errors else "")) }}
+                {% if form.contact_number.errors %}
+                    <div class="invalid-feedback">{{ form.contact_number.errors[0] }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Look Up Order</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+
+

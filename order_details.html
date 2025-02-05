@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Order Details{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title mb-0">Order Details - #{{ delivery.order_number }}</h3>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Name:</th>
+                    <td>{{ delivery.name }}</td>
+                </tr>
+                <tr>
+                    <th>Contact Number:</th>
+                    <td>{{ delivery.contact_number }}</td>
+                </tr>
+                <tr>
+                    <th>Delivery Address:</th>
+                    <td>{{ delivery.delivery_address }}</td>
+                </tr>
+                <tr>
+                    <th>Item Description:</th>
+                    <td>{{ delivery.item_description }}</td>
+                </tr>
+                <tr>
+                    <th>Pickup Date:</th>
+                    <td>{{ delivery.pickup_date }}</td>
+                </tr>
+                <tr>
+                    <th>Pickup Location:</th>
+                    <td>{{ delivery.pickup_location or 'Not specified' }}</td>
+                </tr>
+                <tr>
+                    <th>Delivery Method:</th>
+                    <td>{{ delivery.delivery_method }}</td>
+                </tr>
+                <tr>
+                    <th>Status:</th>
+                    <td>
+                        <span class="badge bg-{{ 'success' if delivery.status == 'Completed'
+                                            else 'warning' if delivery.status == 'In Progress'
+                                            else 'primary' }}">
+                            {{ delivery.status }}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Created At:</th>
+                    <td>{{ delivery.created_at }}</td>
+                </tr>
+            </table>
+            <div class="mt-3">
+                <a href="{{ url_for('lookup_order') }}" class="btn btn-secondary">Back to Look Up</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
