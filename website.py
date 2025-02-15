@@ -90,7 +90,6 @@ def schedule_delivery():
 
     return render_template('schedule_delivery.html', form=form)
 
-
 @app.route('/edit_order/<string:order_number>', methods=['GET', 'POST'])
 def edit_order(order_number):
     order = customer_orders.get(order_number)
@@ -101,21 +100,18 @@ def edit_order(order_number):
     form = DeliveryForm()
 
     if request.method == 'GET':
-        # Pre-fill form with existing order data
         form.name.data = order['name']
         form.contact_number.data = order['contact_number']
         form.delivery_address.data = order['delivery_address']
         form.item_description.data = order['item_description']
         form.pickup_date.data = order['pickup_date']
-        form.pickup_location.data = order['pickup_location']
-        form.delivery_method.data = next(
-            k for k, v in dict(form.delivery_method.choices).items() if v == order['delivery_method'])
+        form.pickup_location.data = order.get('pickup_location', '')  # Prevent KeyError
+        form.delivery_method.data = next((k for k, v in dict(form.delivery_method.choices).items() if v == order['delivery_method']), '')
 
     if request.method == 'POST' and form.validate_on_submit():
         try:
             pickup_date = datetime.strptime(form.pickup_date.data, '%Y-%m-%d')
 
-            # Update order with new data
             order.update({
                 'name': form.name.data,
                 'contact_number': form.contact_number.data,
@@ -135,6 +131,7 @@ def edit_order(order_number):
             flash('Invalid date format', 'error')
 
     return render_template('edit_order.html', form=form, order_number=order_number)
+
 
 # after typing in the order number and number it will birng to another age
 @app.route('/lookup_order', methods=['GET', 'POST'])
@@ -181,6 +178,7 @@ def delete_order(order_number):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
 

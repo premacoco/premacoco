@@ -41,9 +41,25 @@
                 <div class="invalid-feedback">{{ form.pickup_date.errors[0] }}</div>
             {% endif %}
         </div>
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="pickup_location">Pickup Location (Optional)</label>-->
+<!--            {{ form.pickup_location(class="form-control") }}-->
+<!--        </div>-->
+<!--        <div class="-->
         <div class="form-group mt-3">
-            <label for="pickup_location">Pickup Location (Optional)</label>
-            {{ form.pickup_location(class="form-control") }}
-        </div>
-        <div class="
+    <label for="pickup_location">Pickup Location (Optional)</label>
+    {{ form.pickup_location(class="form-control") }}
+</div>
+<div class="form-group mt-3">
+    <label for="delivery_method" class="required">Delivery Method</label>
+    {{ form.delivery_method(class="form-control" + (" is-invalid" if form.delivery_method.errors else "")) }}
+    {% if form.delivery_method.errors %}
+        <div class="invalid-feedback">{{ form.delivery_method.errors[0] }}</div>
+    {% endif %}
+</div>
+<button type="submit" class="btn btn-primary mt-3">Update Order</button>
+</form>
+
+{% endblock %}
+
 
